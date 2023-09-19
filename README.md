@@ -13,8 +13,7 @@ This is a simple Task Management application built with FastAPI, allowing you to
     - [Get Task by ID](#get-task-by-id)
     - [Mark Task as Finished](#mark-task-as-finished)
     - [Create a New Task](#create-a-new-task)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Getting Started
 
@@ -44,6 +43,38 @@ This is a simple Task Management application built with FastAPI, allowing you to
     ```bash
     uvicorn main:app --reload
 This will start the FastAPI application on http://localhost:8000.
+
+### API Endpoints
+Get All Tasks
+**Endpoint:** /tasks
+**Method:** GET
+**Parameters:**
+***`page`***: Page number (default is 1)
+***`per_page`***: Items per page (default is 10)
+***`finished`***: Filter by finished tasks (True/False/None for all)
+***`created_at_start`***: Filter tasks created after this date (YYYY-MM-DD)
+***`created_at_end`***: Filter tasks created before this date (YYYY-MM-DD)
+***`finished_at_start`***: Filter tasks finished after this date (YYYY-MM-DD)
+***`finished_at_end`***: finished_at_end
+**Response:** List of tasks matching the criteria.
+
+Get Task by ID
+**Endpoint:** /tasks/{id}
+**Method:** GET
+**Parameters:** id - Task ID
+**Response:** Details of the task with the specified ID.
+
+Mark Task as Finished
+**Endpoint:** /tasks/{id}/finished
+**Method:** PUT
+**Parameters:** id - Task ID
+**Response:** Updated task status.
+
+Create a New Task
+**Endpoint:** /tasks
+**Method:** POST
+**Request Body:** Task details (title and description)
+**Response:** Created task details.
 
 
 
