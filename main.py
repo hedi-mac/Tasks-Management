@@ -64,10 +64,18 @@ async def set_task_finished(id: int, db: db_dependency):
     return {'data': task}
 
 @app.post("/tasks", status_code=status.HTTP_201_CREATED)
-async def create_tasks(task: TaskBase, db: db_dependency): 
+async def create_task(task: TaskBase, db: db_dependency): 
     db_task = models.Tasks(title=task.title, description=task.description) 
     db.add(db_task)
     db.commit() 
     db.refresh(db_task) 
 
+@app.delete("/tasks/{id}", status_code=status.HTTP_204_NO_CONTENT)   
+async def delete_task(id: int, db: db_dependency):
+    task = db.query(models.Tasks).filter(models.Tasks.id == id).first()
+    if not task:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Task not found')
+    db.query(models.Tasks).filter(models.Tasks.id == id).delete(synchronize_session=False)
+    db.commit()
+    return {'message': 'done'}
 
