@@ -12,6 +12,9 @@ class Tasks(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     finished_at = Column(DateTime(timezone=True), nullable=True)
 
-    def mark_as_finished(self):
-        self.finished = True
-        self.finished_at = datetime.now()
+    def update_status(self, finished: bool):
+        self.finished = finished
+        if finished :
+            self.finished_at = datetime.now()
+        else : 
+            self.finished_at = None

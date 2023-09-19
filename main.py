@@ -1,17 +1,15 @@
 from fastapi import FastAPI, Query, Depends, HTTPException
-from pydantic import BaseModel
 from datetime import datetime, timedelta
 from typing import List, Annotated
 from database import engine, SessionLocal
+from schemas import TaskBase
 from sqlalchemy.orm import Session
 import models
 
 app = FastAPI()
 models.Base.metadata.create_all(bind = engine)
 
-class TaskBase(BaseModel):
-    title : str
-    description : str
+
 
 def get_db():
     db = SessionLocal()
@@ -57,9 +55,21 @@ async def get_task_by_id(id: int, db: db_dependency):
         raise HTTPException(status_code=404, detail='task not found')
     return {'data': result}
 
+@app.put('/tasks/{id}/finished')
+async def set_task_finished(id: int, db: db_dependency):
+    task = db.query(models.Tasks).filter(models.Tasks.id == id).first()
+    if not task:
+        raise HTTPException(status_code=404, detail='task not found')
+    task.update_status(True)
+    db.commit()
+    db.refresh(task)
+    return {'data': task}
+
 @app.post("/tasks")
 async def create_tasks(task: TaskBase, db: db_dependency): 
     db_task = models.Tasks(title=task.title, description=task.description) 
     db.add(db_task) 
     db.commit() 
     db.refresh(db_task) 
+
+
