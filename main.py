@@ -20,7 +20,7 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-@app.get('/tasks', status_code=status.HTTP_200_OK, response_model=List[ShowTask])
+@app.get('/tasks', status_code=status.HTTP_200_OK, response_model=List[ShowTask], tags=['TASKS'])
 async def get_all_tasks(
     db: db_dependency,
     page: int = Query(default=1, description="Page number, default is 1"),
@@ -48,14 +48,14 @@ async def get_all_tasks(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='no tasks')
     return tasks
 
-@app.get('/tasks/{id}', status_code=status.HTTP_200_OK, response_model=ShowTask)
+@app.get('/tasks/{id}', status_code=status.HTTP_200_OK, response_model=ShowTask, tags=['TASKS'])
 async def get_task_by_id(id: int, db: db_dependency):
     result = db.query(models.Tasks).filter(models.Tasks.id == id).first()
     if not result:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='task not found')
     return result
 
-@app.put('/tasks/{id}/finished', status_code=status.HTTP_202_ACCEPTED)
+@app.put('/tasks/{id}/finished', status_code=status.HTTP_202_ACCEPTED, tags=['TASKS'])
 async def set_task_finished(id: int, db: db_dependency):
     task = db.query(models.Tasks).filter(models.Tasks.id == id).first()
     if not task:
@@ -65,7 +65,7 @@ async def set_task_finished(id: int, db: db_dependency):
     db.refresh(task)
     return {'data': task}
 
-@app.put('/tasks/{id}', status_code=status.HTTP_202_ACCEPTED)
+@app.put('/tasks/{id}', status_code=status.HTTP_202_ACCEPTED, tags=['TASKS'])
 async def update_task(id: int, new_task: Task, db: db_dependency):
     task = db.query(models.Tasks).filter(models.Tasks.id == id).first()
     if not task:
@@ -80,7 +80,7 @@ async def update_task(id: int, new_task: Task, db: db_dependency):
     db.refresh(task)
     return {'data': task}
 
-@app.post("/tasks", status_code=status.HTTP_201_CREATED)
+@app.post("/tasks", status_code=status.HTTP_201_CREATED, tags=['TASKS'])
 async def create_task(task: TaskBase, db: db_dependency): 
     db_task = models.Tasks(title=task.title, description=task.description) 
     db.add(db_task)
@@ -88,7 +88,7 @@ async def create_task(task: TaskBase, db: db_dependency):
     db.refresh(db_task) 
     return db_task
 
-@app.delete("/tasks/{id}", status_code=status.HTTP_204_NO_CONTENT)   
+@app.delete("/tasks/{id}", status_code=status.HTTP_204_NO_CONTENT, tags=['TASKS'])   
 async def delete_task(id: int, db: db_dependency):
     task = db.query(models.Tasks).filter(models.Tasks.id == id).first()
     if not task:
@@ -97,7 +97,7 @@ async def delete_task(id: int, db: db_dependency):
     db.commit()
     return {'message': 'done'}
 
-@app.post("/users", status_code=status.HTTP_201_CREATED, response_model=ShowUser)
+@app.post("/users", status_code=status.HTTP_201_CREATED, response_model=ShowUser, tags=['USERS'])
 async def create_task(user: User, db: db_dependency): 
     db_user = models.User(user_name=user.user_name, email=user.email, password=Hash.bcrypt(user.password)) 
     db.add(db_user)

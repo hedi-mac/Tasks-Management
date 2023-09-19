@@ -88,3 +88,9 @@ This will start the FastAPI application on http://localhost:8000.
 - **Method:** DELETE
 - **Parameters:** id - Task ID
 - **Response:** No content (204) upon successful deletion.
+
+#### Create User
+- **Endpoint:** /user
+- **Method:** POST
+- **Request Body:** User details (user_name, email, and password)
+- **Response:** Created user details.
