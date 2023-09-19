@@ -76,5 +76,15 @@ This will start the FastAPI application on http://localhost:8000.
 - **Request Body:** Task details (title and description)
 - **Response:** Created task details.
 
+#### Update Task
+- **Endpoint:** /tasks/{id}
+- **Method:** PUT
+- **Parameters:** id - Task ID
+- **Request Body:** Updated task details (title, description, and finished status)
+- **Response:** Updated task details.
 
-
+#### Delete Task
+- **Endpoint:** /tasks/{id}
+- **Method:** DELETE
+- **Parameters:** id - Task ID
+- **Response:** No content (204) upon successful deletion.
