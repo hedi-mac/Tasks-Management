@@ -45,7 +45,7 @@ This is a simple Task Management application built with FastAPI, allowing you to
 This will start the FastAPI application on http://localhost:8000.
 
 ### API Endpoints
-Get All Tasks
+#### Get All Tasks
 **Endpoint:** /tasks
 **Method:** GET
 **Parameters:**
@@ -58,23 +58,23 @@ Get All Tasks
 ***`finished_at_end`***: finished_at_end
 **Response:** List of tasks matching the criteria.
 
-Get Task by ID
-**Endpoint:** /tasks/{id}
-**Method:** GET
-**Parameters:** id - Task ID
-**Response:** Details of the task with the specified ID.
+#### Get Task by ID
+    - **Endpoint:** /tasks/{id}
+    -**Method:** GET
+    -**Parameters:** id - Task ID
+    -**Response:** Details of the task with the specified ID.
 
-Mark Task as Finished
-**Endpoint:** /tasks/{id}/finished
-**Method:** PUT
-**Parameters:** id - Task ID
-**Response:** Updated task status.
+#### Mark Task as Finished
+    -**Endpoint:** /tasks/{id}/finished
+    -**Method:** PUT
+    -**Parameters:** id - Task ID
+    -**Response:** Updated task status.
 
-Create a New Task
-**Endpoint:** /tasks
-**Method:** POST
-**Request Body:** Task details (title and description)
-**Response:** Created task details.
+#### Create a New Task
+    -**Endpoint:** /tasks
+    -**Method:** POST
+    -**Request Body:** Task details (title and description)
+    -**Response:** Created task details.
 
 
 
