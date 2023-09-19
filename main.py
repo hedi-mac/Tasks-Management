@@ -2,7 +2,7 @@ from fastapi import FastAPI, Query, Depends, HTTPException, status
 from datetime import datetime, timedelta
 from typing import List, Annotated
 from database import engine, SessionLocal
-from schemas import TaskBase
+from schemas import Task, TaskBase
 from sqlalchemy.orm import Session
 import models
 
@@ -63,12 +63,28 @@ async def set_task_finished(id: int, db: db_dependency):
     db.refresh(task)
     return {'data': task}
 
+@app.put('/tasks/{id}', status_code=status.HTTP_202_ACCEPTED)
+async def update_task(id: int, new_task: Task, db: db_dependency):
+    task = db.query(models.Tasks).filter(models.Tasks.id == id).first()
+    if not task:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='task not found')
+    if new_task.finished != task.finished :  
+        task.update_status(new_task.finished)
+    if new_task.title is not None : 
+        task.title = new_task.title
+    if new_task.description is not None : 
+        task.description = new_task.description
+    db.commit()
+    db.refresh(task)
+    return {'data': task}
+
 @app.post("/tasks", status_code=status.HTTP_201_CREATED)
 async def create_task(task: TaskBase, db: db_dependency): 
     db_task = models.Tasks(title=task.title, description=task.description) 
     db.add(db_task)
     db.commit() 
     db.refresh(db_task) 
+    return {'message': 'task deleted'}
 
 @app.delete("/tasks/{id}", status_code=status.HTTP_204_NO_CONTENT)   
 async def delete_task(id: int, db: db_dependency):
