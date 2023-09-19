@@ -5,9 +5,11 @@ from database import engine, SessionLocal
 from schemas import Task, TaskBase, ShowTask, User
 from sqlalchemy.orm import Session
 import models
+from hashing import Hash
 
 app = FastAPI()
 models.Base.metadata.create_all(bind = engine)
+
 
 def get_db():
     db = SessionLocal()
@@ -97,7 +99,7 @@ async def delete_task(id: int, db: db_dependency):
 
 @app.post("/users", status_code=status.HTTP_201_CREATED)
 async def create_task(user: User, db: db_dependency): 
-    db_user = models.User(user) 
+    db_user = models.User(user_name=user.user_name, email=user.email, password=Hash.bcrypt(user.password)) 
     db.add(db_user)
     db.commit() 
     db.refresh(db_user) 
