@@ -2,7 +2,7 @@ from fastapi import FastAPI, Query, Depends, HTTPException, status
 from datetime import datetime, timedelta
 from typing import List, Annotated
 from database import engine, SessionLocal
-from schemas import Task, TaskBase
+from schemas import Task, TaskBase, ShowTask
 from sqlalchemy.orm import Session
 import models
 
@@ -18,7 +18,7 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-@app.get('/tasks', status_code=status.HTTP_200_OK)
+@app.get('/tasks', status_code=status.HTTP_200_OK, response_model=List[ShowTask])
 async def get_all_tasks(
     db: db_dependency,
     page: int = Query(default=1, description="Page number, default is 1"),
@@ -44,14 +44,14 @@ async def get_all_tasks(
     tasks = query.offset(offset).limit(per_page).all()
     if not tasks:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='no tasks')
-    return {'data': tasks}
+    return tasks
 
-@app.get('/tasks/{id}', status_code=status.HTTP_200_OK)
+@app.get('/tasks/{id}', status_code=status.HTTP_200_OK, response_model=ShowTask)
 async def get_task_by_id(id: int, db: db_dependency):
     result = db.query(models.Tasks).filter(models.Tasks.id == id).first()
     if not result:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='task not found')
-    return {'data': result}
+    return result
 
 @app.put('/tasks/{id}/finished', status_code=status.HTTP_202_ACCEPTED)
 async def set_task_finished(id: int, db: db_dependency):
