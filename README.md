@@ -29,6 +29,7 @@ This is a simple Task Management application built with FastAPI, allowing you to
 
 2. **Create and activate a virtual environment:**
     ```bash
+    virtualenv venv
     python -m venv venv
     source venv/bin/activate  # On Windows, use: venv\Scripts\activate
 
