@@ -1,5 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Query, Depends, HTTPException
 from pydantic import BaseModel
+from datetime import datetime, timedelta
 from typing import List, Annotated
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
@@ -21,16 +22,44 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
+@app.get('/tasks')
+async def get_all_tasks(
+    db: db_dependency,
+    page: int = Query(default=1, description="Page number, default is 1"),
+    per_page: int = Query(default=10, description="Items per page, default is 10"),
+    finished: bool = Query(default=None, description="Filter by finished tasks (True/False/None for all)"),
+    created_at_start: datetime = Query(default=None, description="Filter tasks created after this date (YYYY-MM-DD)"),
+    created_at_end: datetime = Query(default=None, description="Filter tasks created before this date (YYYY-MM-DD)"),
+    finished_at_start: datetime = Query(default=None, description="Filter tasks finished after this date (YYYY-MM-DD)"),
+    finished_at_end: datetime = Query(default=None, description="Filter tasks finished before this date (YYYY-MM-DD)"),
+):
+    offset = (page - 1) * per_page
+    query = db.query(models.Tasks)
+    if finished is not None:
+        query = query.filter(models.Tasks.finished == finished)
+    if created_at_start:
+        query = query.filter(models.Tasks.created_at >= created_at_start)
+    if created_at_end:
+        query = query.filter(models.Tasks.created_at <= created_at_end)
+    if finished_at_start:
+        query = query.filter(models.Tasks.finished_at >= finished_at_start)
+    if finished_at_end:
+        query = query.filter(models.Tasks.finished_at <= finished_at_end)
+    tasks = query.offset(offset).limit(per_page).all()
+    if not tasks:
+        raise HTTPException(status_code=404, detail='Tasks not found')
+    return {'data': tasks}
+
+@app.get('/tasks/{id}')
+async def get_task_by_id(id: int, db: db_dependency):
+    result = db.query(models.Tasks).filter(models.Tasks.id == id).first()
+    if not result:
+        raise HTTPException(status_code=404, detail='task not found')
+    return {'data': result}
+
 @app.post("/tasks")
 async def create_tasks(task: TaskBase, db: db_dependency): 
     db_task = models.Tasks(title=task.title, description=task.description) 
     db.add(db_task) 
     db.commit() 
     db.refresh(db_task) 
-
-@app.get('/tasks/{id}')
-async def about(id: int, db: db_dependency):
-    result = db.query(models.Tasks).filter(models.Tasks.id == id).first()
-    if not result:
-        raise HTTPException(status_code=404, detail='task not found')
-    return {'data': result}
