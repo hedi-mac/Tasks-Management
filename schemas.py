@@ -16,3 +16,10 @@ class Task(TaskBase):
     finished: Optional[bool] = None
     created_at: Optional[datetime] = None
     finished_at: Optional[datetime] = None
+
+class User(BaseModel):
+    user_name: str
+    email: str
+    password: str
+
+    

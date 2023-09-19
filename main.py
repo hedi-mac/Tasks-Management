@@ -2,7 +2,7 @@ from fastapi import FastAPI, Query, Depends, HTTPException, status
 from datetime import datetime, timedelta
 from typing import List, Annotated
 from database import engine, SessionLocal
-from schemas import Task, TaskBase, ShowTask
+from schemas import Task, TaskBase, ShowTask, User
 from sqlalchemy.orm import Session
 import models
 
@@ -84,7 +84,7 @@ async def create_task(task: TaskBase, db: db_dependency):
     db.add(db_task)
     db.commit() 
     db.refresh(db_task) 
-    return {'message': 'task deleted'}
+    return db_task
 
 @app.delete("/tasks/{id}", status_code=status.HTTP_204_NO_CONTENT)   
 async def delete_task(id: int, db: db_dependency):
@@ -95,3 +95,10 @@ async def delete_task(id: int, db: db_dependency):
     db.commit()
     return {'message': 'done'}
 
+@app.post("/users", status_code=status.HTTP_201_CREATED)
+async def create_task(user: User, db: db_dependency): 
+    db_user = models.User(user) 
+    db.add(db_user)
+    db.commit() 
+    db.refresh(db_user) 
+    return db_user
