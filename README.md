@@ -68,7 +68,7 @@ The project is structured as follows:
 
 - ***`schemas.py`***: This module defines Pydantic schemas used for data validation and serialization.
 
-- **test_main.py**: Unit test suite for the application - This file contains unit tests and is used for testing the application's functionality at the unit level.
+- ***`test_main.py`***: Unit test suite for the application - This file contains unit tests and is used for testing the application's functionality at the unit level.
 
 - ***`token_manager.py`***: This module manages JWT (JSON Web Token) creation and validation for authentication.
 
@@ -165,14 +165,15 @@ This will start the FastAPI application on http://localhost:8000.
 ## Testing
 ### Unit Tests
 
-***Run the following command to execute unit tests:***
+Run the following command to execute unit tests:
+    
     ```bash
     pytest -s
 
 
 ### Testing API Endpoints
 
-***Using FastAPI Documentation : ***
+*** Using FastAPI Documentation : ***
 Just navigate to http://127.0.0.1:8000/docs# to access the FastAPI documentation.
 
-***Using Postman : ***
+*** Using Postman : ***
