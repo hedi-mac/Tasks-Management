@@ -1,8 +1,8 @@
 from typing import List, Annotated
 from fastapi import APIRouter, Depends, status, HTTPException, Query
 from sqlalchemy.orm import Session
-from schemas import Task, TaskBase, ShowTask
-import models
+from schemas import Task, TaskBase, ShowTask, User
+import models, oauth2
 import database
 from datetime import datetime, timedelta
 from repository import task
@@ -13,13 +13,14 @@ router = APIRouter(
 )
 
 db_dependency = Annotated[Session, Depends(database.get_db)]
+get_db = database.get_db
 
 
-@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=ShowTask, tags=['TASKS'])
-async def get_task_by_id(id: int, db: db_dependency):
+@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=ShowTask)
+async def get_task_by_id(id: int, db: db_dependency, current_user: User = Depends(oauth2.get_current_user)):
     return task.get_by_id(id, db)
 
-@router.get('/', status_code=status.HTTP_200_OK, response_model=List[ShowTask], tags=['TASKS'])
+@router.get('/', status_code=status.HTTP_200_OK, response_model=List[ShowTask])
 async def get_all_tasks(
     db: db_dependency,
     page: int = Query(default=1, description="Page number, default is 1"),
@@ -36,7 +37,7 @@ async def get_all_tasks(
 async def set_task_finished(id: int, db: db_dependency):
     return task.set_finished(id, db)
 
-@router.put('/{id}', status_code=status.HTTP_202_ACCEPTED, tags=['TASKS'])
+@router.put('/{id}', status_code=status.HTTP_202_ACCEPTED)
 async def update_task(id: int, new_task: Task, db: db_dependency):
     return task.update(id, new_task, db)
 
