@@ -75,7 +75,7 @@ The project is structured as follows:
 ## Getting Started
 
 ### Prerequisites
-- Python 3.6 or higher
+- Python 3.9
 - pip (Python package manager)
 
 ### Installation
