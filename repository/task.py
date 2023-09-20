@@ -60,15 +60,23 @@ def update(id: int, new_task: schemas.Task, db, email: str):
         if task.finished : 
             actual_user = repository.user.get_by_email(email, db)
             task.user_id = actual_user.id
-    if new_task.title is not None : 
+    if new_task.title is not None :
+        if not new_task.title.strip():
+            raise HTTPException(status_code=400, detail="Title cannot be empty.") 
         task.title = new_task.title
     if new_task.description is not None : 
+        if not new_task.description.strip():
+            raise HTTPException(status_code=400, detail="Description cannot be empty.")
         task.description = new_task.description
     db.commit()
     db.refresh(task)
     return {'data': task}
 
 def create(task: schemas.TaskBase, db): 
+    if not task.title.strip():
+        raise HTTPException(status_code=400, detail="Title cannot be empty.") 
+    if not task.description.strip():
+            raise HTTPException(status_code=400, detail="Description cannot be empty.")
     db_task = models.Tasks(title=task.title, description=task.description) 
     db.add(db_task)
     db.commit() 
