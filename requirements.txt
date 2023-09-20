@@ -9,3 +9,7 @@ python-jose
 python-multipart
 regex
 python-dotenv
+pytest
+httpx
+pytz
+python-dateutil
