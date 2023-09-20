@@ -182,27 +182,37 @@ Just navigate to http://127.0.0.1:8000/docs# to access the FastAPI documentation
  - **Using Postman :**
 
 ![image](https://github.com/hedi-mac/Tasks-Management/assets/32374946/5a033c25-f5f6-4333-9fa1-e686983f2bdc "Creating User")
-***Creating User***
+    ***Creating User***
+
 ![image](https://github.com/hedi-mac/Tasks-Management/assets/32374946/084da3bb-52b8-4b6f-99a5-c1daec6ad9a3 "Login")
-***Login***
+    ***Login***
+
 ![image](https://github.com/hedi-mac/Tasks-Management/assets/32374946/69034451-2a10-47a8-ad1c-2318049e3ae9 "Create new Task")
-***Create new Task***
+    ***Create new Task***
+
 ![image](https://github.com/hedi-mac/Tasks-Management/assets/32374946/86117ddd-9466-48b8-b883-1f2f0f4c881f "Set Task FINISHED status")
-***Set Task FINISHED status***
+    ***Set Task FINISHED status***
+
 ![image](https://github.com/hedi-mac/Tasks-Management/assets/32374946/1e9e0eb8-12ac-446e-8347-108aa3d326ad "Get Tasks")
-***Get Tasks***
+    ***Get Tasks***
+
 ![image](https://github.com/hedi-mac/Tasks-Management/assets/32374946/8d00fcc9-28a3-4780-91f2-2fcc71e797b7 "Get Tasks with Pagination")
-***Get Tasks with Pagination***
+    ***Get Tasks with Pagination***
+
 ![image](https://github.com/hedi-mac/Tasks-Management/assets/32374946/936deeea-fd32-4ed4-99a3-899226199c17 "Get Tasks filtred by creating date")
-***Get Tasks filtred by creating date***
+    ***Get Tasks filtred by creating date***
+
 ![image](https://github.com/hedi-mac/Tasks-Management/assets/32374946/b87de394-8814-4edb-a0fd-5b296105c060 "Get Tasks Filter by STATUS is finished")
-***Get Tasks Filter by STATUS is finished***
+    ***Get Tasks Filter by STATUS is finished***
+
 ![image](https://github.com/hedi-mac/Tasks-Management/assets/32374946/aedc7407-f6a0-43ec-aa8a-13e7db25382f "Get Tasks Filter by user ID")
-***Get Tasks Filter by user ID***
+    ***Get Tasks Filter by user ID***
+
 ![image](https://github.com/hedi-mac/Tasks-Management/assets/32374946/3b9c02e4-433a-4ac8-93fa-379f66c26a2a "Get Task By ID")
-***Get Task By ID***
+    ***Get Task By ID***
+
 ![image](https://github.com/hedi-mac/Tasks-Management/assets/32374946/2b924b90-77d8-46c9-a38d-8a01b43ee155 "Remove Task")
-***Remove Task***
+    ***Remove Task***
 
 
 
