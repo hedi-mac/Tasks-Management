@@ -70,23 +70,23 @@ The project is structured as follows:
 
 - ***`routers/`***: This directory contains modules that define API endpoints and request handling logic. `authentication.py`, `task.py`, and `user.py` handle various API endpoints and their functionality.
 
-- ***`.env/`***: This file can be used to store environment variables and configuration settings.
+- ***`.env`***: This file can be used to store environment variables and configuration settings.
 
-- ***`database.py/`***: This module is responsible for configuring the database connection.
+- ***`database.py`***: This module is responsible for configuring the database connection.
 
-- ***`hashing.py/`***: This module provides functions for hashing and verifying passwords.
+- ***`hashing.py`***: This module provides functions for hashing and verifying passwords.
 
-- ***`main.py/`***: This is the entry point of the FastAPI application where the FastAPI `FastAPI` instance is created and configured.
+- ***`main.py`***: This is the entry point of the FastAPI application where the FastAPI `FastAPI` instance is created and configured.
 
-- ***`models.py/`***: This module defines the data models used in the application.
+- ***`models.py`***: This module defines the data models used in the application.
 
-- ***`oauth2.py/`***: This module contains OAuth2-related functions for user authentication.
+- ***`oauth2.py`***: This module contains OAuth2-related functions for user authentication.
 
-- ***`requirements.txt/`***: This file lists the required Python packages and their versions.
+- ***`requirements.txt`***: This file lists the required Python packages and their versions.
 
-- ***`schemas.py/`***: This module defines Pydantic schemas used for data validation and serialization.
+- ***`schemas.py`***: This module defines Pydantic schemas used for data validation and serialization.
 
-- ***`token_manager.py/`***: This module manages JWT (JSON Web Token) creation and validation for authentication.
+- ***`token_manager.py`***: This module manages JWT (JSON Web Token) creation and validation for authentication.
 
 ## Usage
 ### Running the App
