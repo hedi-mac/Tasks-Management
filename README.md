@@ -166,8 +166,7 @@ This will start the FastAPI application on http://localhost:8000.
 ### Unit Tests
 
 Run the following command to execute unit tests:
-    
-    ```bash
+
     pytest -s
 
 
