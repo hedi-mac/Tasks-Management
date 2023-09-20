@@ -3,8 +3,8 @@ import models, schemas
 from fastapi import HTTPException, status
 from hashing import Hash
 import re
-
-EMAIL_REGEX = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+ 
+EMAIL_REGEX = r'^[\w\.-]+@[\w\.-]+\.\w+$' 
 PASSWORD_REGEX = r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$'
 
 def create(user: schemas.User, db): 

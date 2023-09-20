@@ -43,8 +43,7 @@ This is a simple Task Management application built with FastAPI, allowing you to
 
 ## Project Structure
 The project is structured as follows:
-    ```bash
-    
+
     Task-Management/
     ├── repository/
     │   ├── __init__.py
