@@ -15,6 +15,8 @@ class User(BaseModel):
     user_name: str
     email: str
     password: str
+    class Config():
+        orm_mode = True
 
 class ShowUser(BaseModel):
     user_name: str
@@ -28,7 +30,7 @@ class ShowTask(TaskBase):
         orm_mode = True
     finished: Optional[bool] = None
     finished_at: Optional[datetime] = None
-    assigned_to: ShowUser
+    assigned_to: Optional[ShowUser]
 
 class Login(BaseModel):
     username: str
@@ -42,5 +44,5 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: Optional[str] = None
-
+    
 

@@ -6,6 +6,7 @@ import models, oauth2
 import database
 from datetime import datetime, timedelta
 from repository import task
+import token_manager
 
 router = APIRouter(
     prefix="/tasks",
@@ -23,6 +24,7 @@ async def get_task_by_id(id: int, db: db_dependency, current_user: User = Depend
 @router.get('/', status_code=status.HTTP_200_OK, response_model=List[ShowTask])
 async def get_all_tasks(
     db: db_dependency,
+    current_user: User = Depends(oauth2.get_current_user),
     page: int = Query(default=1, description="Page number, default is 1"),
     per_page: int = Query(default=10, description="Items per page, default is 10"),
     finished: bool = Query(default=None, description="Filter by finished tasks (True/False/None for all)"),
@@ -34,17 +36,17 @@ async def get_all_tasks(
     return task.get_all(db, page, per_page, finished, created_at_start, created_at_end, finished_at_start, finished_at_end)
 
 @router.put('/{id}/finished', status_code=status.HTTP_202_ACCEPTED)
-async def set_task_finished(id: int, db: db_dependency):
-    return task.set_finished(id, db)
+async def set_task_finished(id: int, db: db_dependency, current_user: User = Depends(oauth2.get_current_user)):
+    return task.set_finished(id, db, current_user.email)
 
 @router.put('/{id}', status_code=status.HTTP_202_ACCEPTED)
-async def update_task(id: int, new_task: Task, db: db_dependency):
-    return task.update(id, new_task, db)
+async def update_task(id: int, new_task: Task, db: db_dependency, current_user: User = Depends(oauth2.get_current_user)):
+    return task.update(id, new_task, db, current_user.email)
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-async def create_task(new_task: TaskBase, db: db_dependency): 
+async def create_task(new_task: TaskBase, db: db_dependency, current_user: User = Depends(oauth2.get_current_user)): 
     return task.create(new_task, db)
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)   
-async def delete_task(id: int, db: db_dependency):
+async def delete_task(id: int, db: db_dependency, current_user: User = Depends(oauth2.get_current_user)):
     return task.delete(id, db)

@@ -12,7 +12,7 @@ class Tasks(Base):
     finished = Column(Boolean, default=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     finished_at = Column(DateTime(timezone=True), nullable=True)
-    user_id = Column(Integer, ForeignKey('users.id'))
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
     assigned_to = relationship("Users", back_populates="tasks")
 
     def update_status(self, finished: bool):
@@ -21,11 +21,13 @@ class Tasks(Base):
             self.finished_at = datetime.now()
         else : 
             self.finished_at = None
+            self.user_id = None
+            self.assigned_to = None
 
 class Users(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, index=True)
     user_name = Column(String)
-    email = Column(String)
+    email = Column(String, unique=True)
     password = Column(String)
     tasks = relationship("Tasks", back_populates="assigned_to")
