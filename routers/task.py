@@ -32,8 +32,9 @@ async def get_all_tasks(
     created_at_end: datetime = Query(default=None, description="Filter tasks created before this date (YYYY-MM-DD)"),
     finished_at_start: datetime = Query(default=None, description="Filter tasks finished after this date (YYYY-MM-DD)"),
     finished_at_end: datetime = Query(default=None, description="Filter tasks finished before this date (YYYY-MM-DD)"),
+    user_id: int = Query(default=None, description="User ID, default is None")
 ):
-    return task.get_all(db, page, per_page, finished, created_at_start, created_at_end, finished_at_start, finished_at_end)
+    return task.get_all(db, page, per_page, finished, created_at_start, created_at_end, finished_at_start, finished_at_end, user_id)
 
 @router.put('/{id}/finished', status_code=status.HTTP_202_ACCEPTED)
 async def set_task_finished(id: int, db: db_dependency, current_user: User = Depends(oauth2.get_current_user)):
