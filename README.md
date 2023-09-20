@@ -42,6 +42,7 @@ This is a simple Task Management application built with FastAPI, allowing you to
     pip install -r requirements.txt
 
 ## Project Structure
+
 The project is structured as follows:
 
     Task-Management/
