@@ -82,7 +82,7 @@ async def update_task(id: int, new_task: Task, db: db_dependency):
 
 @app.post("/tasks", status_code=status.HTTP_201_CREATED, tags=['TASKS'])
 async def create_task(task: TaskBase, db: db_dependency): 
-    db_task = models.Tasks(title=task.title, description=task.description) 
+    db_task = models.Tasks(title=task.title, description=task.description, user_id=1) 
     db.add(db_task)
     db.commit() 
     db.refresh(db_task) 
@@ -99,7 +99,7 @@ async def delete_task(id: int, db: db_dependency):
 
 @app.post("/users", status_code=status.HTTP_201_CREATED, response_model=ShowUser, tags=['USERS'])
 async def create_task(user: User, db: db_dependency): 
-    db_user = models.User(user_name=user.user_name, email=user.email, password=Hash.bcrypt(user.password)) 
+    db_user = models.Users(user_name=user.user_name, email=user.email, password=Hash.bcrypt(user.password)) 
     db.add(db_user)
     db.commit() 
     db.refresh(db_user) 
