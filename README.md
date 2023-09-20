@@ -172,7 +172,7 @@ Run the following command to execute unit tests:
 
 ### Testing API Endpoints
 
- - *** Using FastAPI Documentation : ***
+ - **Using FastAPI Documentation :**
 Just navigate to http://127.0.0.1:8000/docs# to access the FastAPI documentation.
 
- - *** Using Postman : ***
+ - **Using Postman :**
