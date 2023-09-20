@@ -174,5 +174,6 @@ Run the following command to execute unit tests:
 
  - **Using FastAPI Documentation :**
 Just navigate to http://127.0.0.1:8000/docs# to access the FastAPI documentation.
+![image](https://github.com/hedi-mac/Tasks-Management/assets/32374946/b4333e8c-5f5a-4036-abfd-cc3127c94190 "FastAPI documentation UI")
 
  - **Using Postman :**
