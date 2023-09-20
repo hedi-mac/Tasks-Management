@@ -3,10 +3,10 @@
 This is a simple Task Management application built with FastAPI, allowing you to manage your tasks efficiently. You can create, view, update, and filter tasks based on various criteria.
 
 ## Table of Contents
+- [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Project Structure](#project-structure)
 - [Usage](#usage)
   - [Running the App](#running-the-app)
   - [API Endpoints](#api-endpoints)
@@ -18,28 +18,9 @@ This is a simple Task Management application built with FastAPI, allowing you to
     - [Delete Task](#delete-task)
     - [Create User](#create-user)
     - [User Login](#user-login)
-
-## Getting Started
-
-### Prerequisites
-- Python 3.6 or higher
-- pip (Python package manager)
-
-### Installation
-1. **Clone the repository:**
-    ```bash
-    git clone https://github.com/yourusername/task-management-app.git
-    cd task-management-app
-
-2. **Create and activate a virtual environment:**
-    ```bash
-    virtualenv venv
-    python -m venv venv
-    source venv/bin/activate  # On Windows, use: venv\Scripts\activate
-
-3. **Install the required Python packages:**
-    ```bash
-    pip install -r requirements.txt
+- [Testing](#testing)
+  - [Unit Tests](#unit-test)
+  - [Testing API Endpoints](#test-end-points)
 
 ## Project Structure
 
@@ -64,6 +45,7 @@ The project is structured as follows:
     ├── oauth2.py
     ├── requirements.txt
     ├── schemas.py
+    ├── test_main.py
     └── token_manager.py
 
 - ***`repository/`***: This directory contains modules for database interactions and data models. task.py and user.py define the database models for tasks and users.
@@ -86,7 +68,31 @@ The project is structured as follows:
 
 - ***`schemas.py`***: This module defines Pydantic schemas used for data validation and serialization.
 
+- **test_main.py**: Unit test suite for the application - This file contains unit tests and is used for testing the application's functionality at the unit level.
+
 - ***`token_manager.py`***: This module manages JWT (JSON Web Token) creation and validation for authentication.
+
+## Getting Started
+
+### Prerequisites
+- Python 3.6 or higher
+- pip (Python package manager)
+
+### Installation
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/yourusername/task-management-app.git
+    cd task-management-app
+
+2. **Create and activate a virtual environment:**
+    ```bash
+    virtualenv venv
+    python -m venv venv
+    source venv/bin/activate  # On Windows, use: venv\Scripts\activate
+
+3. **Install the required Python packages:**
+    ```bash
+    pip install -r requirements.txt
 
 ## Usage
 ### Running the App
@@ -154,3 +160,19 @@ This will start the FastAPI application on http://localhost:8000.
 - **Response:** Access token for authentication.
 
     Note: Authentication is required for all endpoints except User Login.
+
+
+## Testing
+### Unit Tests
+
+***Run the following command to execute unit tests:***
+    ```bash
+    pytest -s
+
+
+### Testing API Endpoints
+
+***Using FastAPI Documentation : ***
+Just navigate to http://127.0.0.1:8000/docs# to access the FastAPI documentation.
+
+***Using Postman : ***
