@@ -1,4 +1,4 @@
-# Task Management App with FastAPI
+# Task Management App ✅ with FastAPI ⚡
 
 This is a simple Task Management application built with FastAPI, allowing you to manage your tasks efficiently. You can create, view, update, and filter tasks based on various criteria.
 
