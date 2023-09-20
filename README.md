@@ -13,7 +13,7 @@ This is a simple Task Management application built with FastAPI, allowing you to
     - [Get Task by ID](#get-task-by-id)
     - [Mark Task as Finished](#mark-task-as-finished)
     - [Create a New Task](#create-a-new-task)
-
+    - [User Login](#user-login)
 
 ## Getting Started
 
@@ -47,17 +47,17 @@ This will start the FastAPI application on http://localhost:8000.
 
 ### API Endpoints
 #### Get All Tasks
-**Endpoint:** /tasks
-**Method:** GET
-**Parameters:**
-***`page`***: Page number (default is 1)
-***`per_page`***: Items per page (default is 10)
-***`finished`***: Filter by finished tasks (True/False/None for all)
-***`created_at_start`***: Filter tasks created after this date (YYYY-MM-DD)
-***`created_at_end`***: Filter tasks created before this date (YYYY-MM-DD)
-***`finished_at_start`***: Filter tasks finished after this date (YYYY-MM-DD)
-***`finished_at_end`***: finished_at_end
-**Response:** List of tasks matching the criteria.
+- **Endpoint:** /tasks
+- **Method:** GET
+- **Parameters:**
+- ***`page`***: Page number (default is 1)
+- ***`per_page`***: Items per page (default is 10)
+- ***`finished`***: Filter by finished tasks (True/False/None for all)
+- ***`created_at_start`***: Filter tasks created after this date (YYYY-MM-DD)
+- ***`created_at_end`***: Filter tasks created before this date (YYYY-MM-DD)
+- ***`finished_at_start`***: Filter tasks finished after this date (YYYY-MM-DD)
+- ***`finished_at_end`***: finished_at_end
+- **Response:** List of tasks matching the criteria.
 
 #### Get Task by ID
 - **Endpoint:** /tasks/{id}
@@ -95,3 +95,11 @@ This will start the FastAPI application on http://localhost:8000.
 - **Method:** POST
 - **Request Body:** User details (user_name, email, and password)
 - **Response:** Created user details.
+
+#### Create User
+- **Endpoint:** /login
+- **Method:** POST
+- **Request Body:** User login details (username and password)
+- **Response:** Access token for authentication.
+
+    Note: Authentication is required for all endpoints except User Login.
