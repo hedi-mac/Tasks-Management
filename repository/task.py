@@ -13,11 +13,15 @@ def get_all(
     created_at_end: datetime,
     finished_at_start: datetime,
     finished_at_end: datetime,
+    user_id: int
 ):
     offset = (page - 1) * per_page
     query = db.query(models.Tasks)
     if finished is not None:
         query = query.filter(models.Tasks.finished == finished)
+    if user_id:
+        if repository.user.get_by_id(user_id, db) : 
+            query = query.filter(models.Tasks.user_id == user_id)    
     if created_at_start:
         query = query.filter(models.Tasks.created_at >= created_at_start)
     if created_at_end:

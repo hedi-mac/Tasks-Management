@@ -29,4 +29,10 @@ def get_by_email(email: str, db):
     result = db.query(models.Users).filter(models.Users.email == email).first()
     if not result:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='user not found')
-    return result
+    return result  
+
+def get_by_id(id: int, db): 
+    result = db.query(models.Users).filter(models.Users.id == id).first()
+    if not result:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='user not found')
+    return result  
