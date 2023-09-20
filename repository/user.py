@@ -12,7 +12,7 @@ def create(user: schemas.User, db):
     if result:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='existing email')
     if not user.user_name.strip():
-            raise HTTPException(status_code=400, detail="Username cannot be empty.")
+        raise HTTPException(status_code=400, detail="Username cannot be empty.")
     if len(user.password) < 6:
         raise HTTPException(status_code=400, detail="Password must be at least 6 characters long.")
     if not re.match(EMAIL_REGEX, user.email):
